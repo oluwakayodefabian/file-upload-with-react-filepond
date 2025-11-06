@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FilePond } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function FilePondChunkVideoUploader({ setUploadedVideoIdentifier, setUploading }) {
     const [files, setFiles] = useState([]);
 
@@ -18,7 +20,7 @@ export default function FilePondChunkVideoUploader({ setUploadedVideoIdentifier,
                 chunkForce={true}
                 server={{
                     process: {
-                        url: 'http://localhost:8000/api/initiate-chunk-upload',
+                        url: API_URL + '/api/initiate-chunk-upload',
                         method: 'POST',
                         withCredentials: false,
                         headers: {
@@ -63,7 +65,7 @@ export default function FilePondChunkVideoUploader({ setUploadedVideoIdentifier,
                         },
                     },
                     patch: {
-                        url: 'http://localhost:8000/api/upload-chunk?patch=',
+                        url: API_URL + 'api/upload-chunk?patch=',
                         method: 'PATCH',
                         withCredentials: false,
                         onload: (response) => {
@@ -95,7 +97,7 @@ export default function FilePondChunkVideoUploader({ setUploadedVideoIdentifier,
                         },
                     },
                     revert: {
-                        url: 'http://localhost:8000/api/revert-upload', // You can also pass an optional id parameter to the endpoint if needed
+                        url: API_URL + 'api/revert-upload', // You can also pass an optional id parameter to the endpoint if needed
                         method: 'DELETE',
                         withCredentials: false,
                     },

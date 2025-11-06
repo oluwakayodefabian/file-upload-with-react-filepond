@@ -4,6 +4,18 @@
  
  You can read their docs for more info: https://pqina.nl/filepond/docs/
 
+ ## INSTALLATION
+
+ Install the necessary packages via npm in your react application
+ - react-filepond
+ - filepond
+ - filepond-plugin-file-validate-type
+ - filepond-plugin-file-metadata
+
+ ```
+    npm install react-filepond filepond filepond-plugin-file-validate-type filepond-plugin-file-metadata
+ ```
+
 I was thinking of a way to improve the way large files were being uploaded on the project I was working on.
 
 I tried passing the file being uploaded to a queue job and then processing it later. It made sense at first, but the client still has to upload that file to the server first before passing it to the queue along with other payloads. This still slowed down the request and provided a negative user experience, as the user has to wait for the request to complete, and sometimes they might experience server timeout if the request takes too long to complete.

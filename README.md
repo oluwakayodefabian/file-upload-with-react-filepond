@@ -6,16 +6,17 @@
 
 I was thinking of a way to improve the way large files were being uploaded on the project I was working on.
 
-I tried passing the file being uploaded to a queue job amd the process it later. It made sense at first, but, The client has to still upload that file to the server first before passing to the queue along with other payloads. This still slowed down the request and provided a bad user experience, as the user has to wait for the request to complete and sometimes they might experience server timeout if the request takes too long to complete.
+I tried passing the file being uploaded to a queue job and then processing it later. It made sense at first, but the client still has to upload that file to the server first before passing it to the queue along with other payloads. This still slowed down the request and provided a negative user experience, as the user has to wait for the request to complete, and sometimes they might experience server timeout if the request takes too long to complete.
 
-So I thought to myself, what if there's a way I can send a request to a different endpoint on the server to store the file in a temporary location, whenever a file is uploaded, and also give the user a  feedback about what's happening, like let's say, a progress bar with a percentage of the upload being carried and then return a unique identifier that will be passed along with the entire payload that will passed from a form.
+
+So I thought to myself, what if there's a way I can send a request to a different endpoint on the server to store the file in a temporary location whenever a file is uploaded and also give the user feedback about what's happening, like, let's say, a progress bar with a percentage of the upload being carried, and then return a unique identifier that will be passed along with the entire payload that will be passed from a form?
 
 ### EXAMPLE : A form that is used for creating a course
 The form will typically contain a course name, course price, description, image, intro video, etc. Now, in this kind of form, the field i am concerned about is the intro video field that allows a user to upload a video. The video could be 30 to 50MB in size depending on the validation as well on the frontend and the backend. And that is definitely going to slow the request. So what I do is I pass the job to filepond. 
 
 Whenever a video file is uploaded, make a request to an endpoint on the server, when you are done return a unique Id that I can now pass to intro_video that will be sent to the endpoint that creates a course instead of passing the entire file. This allows for a more smoother experience.
 
-I can also sure they are not able to complete the request until the file upload to the server is complete.
+And I also made sure they are not able to complete the request until the file upload to the server is complete.
 
 ### CURRENT BLOCKER
 My current implementation works for a standard upload. The only issue i am having now is with chunk uploads. This simply means splitting a big file into chunks and then sending it to the server, once all the chunks are received by the server, the server reconstructs them together and the save them in the appropriate location. This allows for larger files to be sent quickly.

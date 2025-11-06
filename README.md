@@ -14,7 +14,7 @@ So I thought to myself, what if there's a way I can send a request to a differen
 ### EXAMPLE : A form that is used for creating a course
 The form will typically contain a course name, course price, description, image, intro video, etc. Now, in this kind of form, the field i am concerned about is the intro video field that allows a user to upload a video. The video could be 30 to 50MB in size depending on the validation as well on the frontend and the backend. And that is definitely going to slow the request. So what I do is I pass the job to filepond. 
 
-Whenever a video file is uploaded, make a request to an endpoint on the server, when you are done return a unique Id that I can now pass to intro_video that will be sent to the endpoint that creates a course instead of passing the entire file. This allows for a more smoother experience.
+Whenever a video file is uploaded, I tell filepond make a request to an endpoint on the server, when you are done return a unique Id that I can now pass to intro_video that will be sent to the endpoint that creates a course instead of passing the entire file. This allows for a more smoother experience.
 
 And I also made sure they are not able to complete the request until the file upload to the server is complete.
 
